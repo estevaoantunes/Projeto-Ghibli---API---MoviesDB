@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+
+
+body{
+    font-family:"QuickSand", sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.carousel-item img{
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+
+#iconeAluno {
+  height: 100px;
+  margin-bottom: 200px;
+}
+.info-section {
+  margin-bottom: 20px;
+}
+
+.card {
+    max-width: 400px; /* Define a largura máxima dos cards */
+    margin: 0 auto; /* Centraliza os cards */
+  }
+  
+  .card img {
+    height: 500px; /* Altura fixa para as imagens */
+    object-fit: cover; /* Mantém as proporções das imagens */
+  }
+  
+  .card h4 {
+    font-size: 2rem; /* Reduz o tamanho do título */
+    margin: 10px 0;
+  }
+  
+  .card p {
+    font-size: 1.2rem; /* Reduz o tamanho do texto */
+    line-height: 1.2; /* Ajusta o espaçamento entre linhas */
+  }
+  

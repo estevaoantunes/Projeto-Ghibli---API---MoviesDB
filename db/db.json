@@ -1,0 +1,32 @@
+{
+    "perfil-usuario":[
+        {
+            "id": 1,
+            "nome-usuario": "Estevão Antunes Lessa de Sousa Oliveira",
+            "curso-usuario": "Análise e Desenvolvimento de Sistemas",
+            "turno": "Noturno",
+            "e-mail": "estevao.antunes123@gmail.com",
+            "facebook": "lorem ipsul",
+            "twitter": "lorem ipsul",
+            "instagram": "lorem ipsul",
+            "biograria": "Estudante em Análise e Desenvolvilmento, aprendendo HTML, CSS, JS e C#. Gosta de jogar uns joguinhos nas horas vargas"
+        }
+    ],
+   "filmes-favoritos": [
+        {
+            "id": 1,
+            "title": "A Origem",
+            "overview": "Dom Cobb é um ladrão com a rara habilidade de roubar segredos do subconsciente durante o estado de sonho.",
+            "poster_path": "path-to-inception.jpg",
+            "release_date": "2010-07-16"
+        },
+        {
+            "id": 2,
+            "title": "Interstellar",
+            "overview": "Um grupo de exploradores embarca em uma missão para salvar a humanidade através de um buraco de minhoca.",
+            "poster_path": "path-to-interstellar.jpg",
+            "release_date": "2014-11-07"
+        }
+    ]
+
+}
