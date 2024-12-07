@@ -1,0 +1,16 @@
+--------------------------------
+PASSO A PASSO DE COMO EXECUTAR O ARQUIVO JSON
+
+É importante executar o arquivo JSON para que as informações de aluno possa aparecer para o usuário.
+
+Sempre que o projeto for transferido para um novo computador ou ter um novo acesso, deve executar esses passos para poder visualizar as informações, caso contrário não vai aparecer.
+
+1º) Abra o CMD ou PowerShell do Windows e acesse o diretório da pasta que está localizado o projeto utilizando o comando exemplo abaixo:
+
+cd caminho/do/diretorio/do/arquivo-db
+
+2º) Execute este comando em seguida
+
+json-server --watch db.json
+
+

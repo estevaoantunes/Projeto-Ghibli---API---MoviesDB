@@ -5,7 +5,7 @@ const accountId = '21599743';
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const API_URL = "https://ghibliapi.vercel.app/films";
 const JSON_URL = "http://localhost:3000/perfil-usuario";
-const FAVORITE_URL = `http://localhost:3000/filmes-favoritos`;
+const FAVORITE_URL = `https://api.themoviedb.org/3/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}&language=pt-BR`;
 
 
 // Função para buscar e exibir as informações do JSON
@@ -103,13 +103,11 @@ async function fetchGhibliMovies() {
   }
 }
 
-// Função para preencher os cards com os filmes do Estúdio Ghibli
 function populateCards(movies) {
   const cards = document.querySelectorAll('.movie-card');
 
-  // Preenche cada card com os dados do filme
   movies.slice(0, cards.length).forEach((movie, index) => {
-    const { title, overview, release_date, poster_path } = movie;
+    const { id, title, overview, release_date, poster_path } = movie;
 
     const card = cards[index];
     const img = card.querySelector('.movie-img');
@@ -117,7 +115,6 @@ function populateCards(movies) {
     const movieOverview = card.querySelector('.movie-overview');
     const movieReleaseDate = card.querySelector('.movie-release-date');
 
-    // Preenche os elementos do card
     img.src = poster_path ? `${imageBaseUrl}${poster_path}` : 'assets/Imagens/placeholder.png';
     img.alt = title;
     movieTitle.textContent = title;
@@ -125,58 +122,28 @@ function populateCards(movies) {
     movieReleaseDate.textContent = release_date
       ? `Ano de lançamento: ${new Date(release_date).getFullYear()}`
       : 'Ano de lançamento: Não informado.';
+
+    // Adiciona evento de clique ao card para redirecionar
+    card.addEventListener('click', () => {
+      window.location.href = `detalhes.html?id=${id}`;
+    });
   });
 }
 
 
-// Executa a função ao carregar a página
-document.addEventListener("DOMContentLoaded", carregarDados);
-
-const SESSION_ID = '4b36df2195b41485189ccdf36991c9fa2c7b44ca'; 
-const ACCOUNT_ID = '21599743'; 
-
-async function getFavorites() {
-  try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite/tv?api_key=${API_KEY}&session_id=${SESSION_ID}`
-    );
-    const data = await response.json();
-
-    const seriesContainer = document.querySelector("#minhas-series");
-    seriesContainer.innerHTML = ""; 
-
-    data.results.forEach((series) => {
-     
-      const card = document.createElement("div");
-      card.className = "card col-md-3 col-sm-6 mb-4";
-      card.style.border = "none";
-
-      card.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w500${series.poster_path}" alt="${series.name}" class="card-img-top img-thumbnail">
-        <h4 class="card-header text-center">${series.name}</h4>
-        <div class="card-body">
-          <p class="card-text text-center">${series.overview}</p>
-        </div>
-      `;
-      seriesContainer.appendChild(card);
-    });
-  } catch (error) {
-    console.error("Erro ao carregar favoritos:", error);
-  }
-}
-
+/*FILMES FAVORITOS*/ 
 
 async function carregarFilmesFavoritos() {
   try {
-    // Busca os dados do JSON local
-    const resposta = await fetch(JSON_URL);
-    if (!resposta.ok) throw new Error("Erro ao carregar filmes favoritos!");
+    const resposta = await fetch(FAVORITE_URL);
+    if (!resposta.ok) throw new Error("Erro ao buscar filmes favoritos!");
 
-    const filmes = await resposta.json();
+    const dados = await resposta.json();
+    const filmes = dados.results;
 
     // Verifica se há filmes favoritos
     if (!filmes || filmes.length === 0) {
-      document.getElementById("movie-container").innerHTML = `
+      document.getElementById("cards-container").innerHTML = `
         <div class="col-12 text-center">
           <p>Nenhum filme favorito encontrado.</p>
         </div>
@@ -185,35 +152,43 @@ async function carregarFilmesFavoritos() {
     }
 
     // Adiciona os filmes ao HTML
-    const container = document.getElementById("movie-container");
+    const container = document.getElementById("cards-container");
     container.innerHTML = ""; // Limpa o container antes de adicionar os filmes
 
     filmes.forEach((filme) => {
       const cardCol = document.createElement("div");
-      cardCol.className = "card col-md-3 col-sm-6 mb-4 movie-card";
-      cardCol.style.border = "none";
+      cardCol.className = "col-12 col-sm-6 col-md-4 col-lg-3";
 
       cardCol.innerHTML = `
-        <img src="${filme.poster_path}" alt="${filme.title}" class="card-img-top img-thumbnail movie-img">
-        <h4 class="card-header text-center movie-title">${filme.title}</h4>
-        <div class="card-body">
-          <p class="card-text text-center movie-overview">${filme.overview ? filme.overview.slice(0, 100) + "..." : "Sinopse não disponível."}</p>
-          <p class="text-center movie-release-date">${filme.release_date ? `Ano de lançamento: ${new Date(filme.release_date).getFullYear()}` : "Ano de lançamento: Não informado."}</p>
+        <div class="card h-100 shadow-sm">
+          <img src="${imageBaseUrl}/${filme.poster_path}" class="card-img-top" alt="${filme.title}">
+          <div class="card-body">
+            <h5 class="card-title">${filme.title}</h5>
+            <p class="card-text">${filme.overview ? filme.overview.slice(0, 100) + "..." : "Sinopse não disponível."}</p>
+          </div>
+          <div class="card-footer text-center">
+            <span class="badge bg-primary">Nota: ${filme.vote_average || "N/A"}</span>
+            <span class="badge bg-secondary">${new Date(filme.release_date).getFullYear() || "Ano não informado"}</span>
+          </div>
         </div>
       `;
 
       container.appendChild(cardCol);
     });
   } catch (erro) {
-    console.error("Erro ao carregar filmes favoritos:", erro);
+    console.error("Erro ao carregar os filmes favoritos:", erro);
   }
 }
 
+// Inicializa o carregamento dos filmes ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarFilmesFavoritos);
+/*FILMES FAVORITOS*/ 
+
+// Executa a função ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarDados);
 
 // Inicializa o carregamento dos filmes ao carregar a página
 document.addEventListener('DOMContentLoaded', fetchGhibliMovies);
-document.addEventListener("DOMContentLoaded", getFavorites);
-
 
 
 //ca330d9216f625d98e5aee5a51f683d0d30eab42

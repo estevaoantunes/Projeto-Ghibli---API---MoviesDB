@@ -12,21 +12,32 @@
             "biograria": "Estudante em Análise e Desenvolvilmento, aprendendo HTML, CSS, JS e C#. Gosta de jogar uns joguinhos nas horas vargas"
         }
     ],
-   "filmes-favoritos": [
+
+    "serie-favoritas":[
         {
-            "id": 1,
-            "title": "A Origem",
-            "overview": "Dom Cobb é um ladrão com a rara habilidade de roubar segredos do subconsciente durante o estado de sonho.",
-            "poster_path": "path-to-inception.jpg",
-            "release_date": "2010-07-16"
+          "id": 1,
+          "serieId": 1399,
+          "userId": 21599743
         },
         {
-            "id": 2,
-            "title": "Interstellar",
-            "overview": "Um grupo de exploradores embarca em uma missão para salvar a humanidade através de um buraco de minhoca.",
-            "poster_path": "path-to-interstellar.jpg",
-            "release_date": "2014-11-07"
+          "id": 2,
+          "serieId": 1412,
+          "userId": 21599743
+        },
+        {
+          "id": 3,
+          "serieId": 82856,
+          "userId": 21599743
+        },
+        {
+          "id": 4,
+          "serieId": 1668,
+          "userId": 21599743
+        },
+        {
+          "id": 5,
+          "serieId": 2316,
+          "userId": 21599743
         }
-    ]
-
+      ]
 }
